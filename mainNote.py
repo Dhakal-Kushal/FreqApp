@@ -31,7 +31,6 @@ MAX_POINTS = 200
 pitch_data = deque([0]*MAX_POINTS, maxlen=MAX_POINTS)
 time_data = deque(np.linspace(-MAX_POINTS/10, 0, MAX_POINTS), maxlen=MAX_POINTS)
 
-
 def listen():
     global stream, listening, exit_app
     if stream is None:
@@ -68,13 +67,11 @@ def listen():
 
                 root.after(0, ui_update)
 
-
 def update_plot():
     line.set_data(time_data, pitch_data)
     ax.set_xlim(time_data[0], time_data[-1])
     ax.set_ylim(0, max(500, max(pitch_data) * 1.2))
     canvas.draw()
-
 
 def start_listening():
     global listening, _listener_thread
@@ -88,12 +85,10 @@ def start_listening():
     _listener_thread.start()
     status_label.config(text="Listening...")
 
-
 def stop_listening():
     global listening
     listening = False
     status_label.config(text="Stopped")
-
 
 def on_closing():
     global exit_app
