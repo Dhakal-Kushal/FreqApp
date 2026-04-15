@@ -1,36 +1,25 @@
-# FreqApp: Real-Time Pitch Detection & Visualization
+# Note Detector Pro: Real-Time Audio Analysis & Tuning
 
-A high-performance Python application designed for real-time Digital Signal Processing. The tool captures live audio input, identifies musical notes using the YIN algorithm, and visualizes frequency trajectory over time.
+Note Detector Pro is a real-time audio analysis tool developed as passion project of mine. The app combines my love for programming and my interest in learning to play music.
 
 ![Project Demo](demo/demo.gif)
 
-## Overview
-This project was built to explore software development using peripherals like a microphone.
-This project is meant to serve as a stepping stone to build a larger piano learning app.
+## Project Overview
+The primary goal of this project was to explore how software can handle live inputs from peripherals. By capturing audio and applying pitch-tracking algorithms, the app provides immediate feedback on musical notes and their precision relative to standard tuning.
 
-## Technical Stack
-* **Language:** Python
-* **Audio Engine:** PyAudio (PortAudio)
-* **DSP Library:** Aubio (Implementing the YIN Pitch Tracking Algorithm)
-* **Numerical Computing:** NumPy
-* **Visualization:** Matplotlib
-* **GUI Framework:** Tkinter
+## Core Functionality
+* **Real-Time Note Detection**: Instantly identifies the fundamental frequency of an audio source and converts it into its corresponding musical note.
+* **Visual Tuning Gauge**: Features a custom-built interface that displays "cents" deviation (±50¢), allowing users to see exactly how sharp or flat a note is.
+* **Scale Verification**: Includes a system that validates whether the detected note fits within a user-selected key and scale, such as Major, Minor, Pentatonic, Blues, or Chromatic.
+* **Data Management**: Automatically logs performance history and allows users to export their session data to a CSV file for future review.
 
-## Technical Highlights
+## AI Collaboration & Learning
+Throughout the development process, I utilized AI as a collaborative tool to help navigate complex technical requirements and accelerate my learning in specific domains:
 
-### 1. Concurrency & Thread Safety
-The application utilizes a dedicated background thread for the audio processing loop to prevent blocking the main GUI thread.
-* **Producer-Consumer Logic:** The audio thread captures and processes frames, while the main thread handles UI rendering.
-* **Safe Updates:** UI elements are updated via `root.after()` to ensure thread safety within the Tkinter event loop.
+* **Tuning Needle Logic**: I leveraged AI to implement the mathematical calculations required to translate pitch deviation into visual movement on the canvas. This ensured the needle accurately reflects tuning status in real-time.
+* **GUI Construction**: Designing a responsive layout for live data can be challenging in Tkinter. AI assisted in organizing the interface components to ensure the graph and history logs remained aligned and user-friendly.
+* **Concurrency & Threading**: Managing a microphone feed while keeping the user interface active requires multiple "threads" of execution. AI played a critical role in helping me understand how to implement background threads safely, preventing the application from freezing or crashing during audio capture.
 
-### 2. Digital Signal Processing Pipeline
-
-* **Normalization:** Converts raw 16-bit integer PCM data into normalized floating-point buffers (-1.0 to 1.0) using NumPy for high-speed vector operations.
-* **YIN Algorithm:** Leverages the YIN algorithm for fundamental frequency detection, which is superior to basic Zero-Crossing methods for handling complex waveforms and background noise.
-
-### 3. Optimized Visualization
-* **Rolling Buffer:** Uses `collections.deque` with a fixed length to maintain a sliding window of pitch data. This ensures O(1) time complexity for appending new samples and popping old ones.
-* **Matplotlib Integration:** Embeds a dynamic plot directly into the Tkinter canvas, optimized to refresh only the necessary data points rather than redrawing the entire figure.
-
-### AI
-* Leveraged AI to explore the aubio library and matplotlib-tinker integration
+## Development Highlights
+* **Efficient Visualization**: The app uses optimized data structures like deques to ensure the "Pitch over Time" graph remains smooth and responsive during long sessions.
+* **Algorithm Integration**: By incorporating the Praat pitch-tracking method via the `parselmouth` library, the tool achieves higher accuracy for human voice and acoustic instruments than standard detection methods.
